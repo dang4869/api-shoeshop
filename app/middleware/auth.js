@@ -5,15 +5,20 @@ var jwt = require('jsonwebtoken')
 const User = require('../models/Users')
 
 
-exports. protect = asyncHandler((req, res, next) => {
+exports.protect = asyncHandler((req, res, next) => {
     let token = ''
+    if (req.headers.authorization === undefined) {
+        return next(new ErrorResponse(res, 401, 'Vui lòng đăng nhập tài khoản'))
+    }
+    console.log(req.headers.authorization);
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1]
-    }else if(req.cookies.token){
+    } else if (req.cookies.token) {
         token = req.cookies.token
     }
-    if (!token) return next(new ErrorResponse(res, 401, 'Vui lòng đăng nhập tài khoản'))
-
+    if (!token) {
+        return next(new ErrorResponse(res, 401, 'Vui lòng đăng nhập tài khoản'))
+    }
     try {
         req.user_id = jwt.verify(token, system.JWT_SECRET)
         next()
@@ -21,13 +26,13 @@ exports. protect = asyncHandler((req, res, next) => {
         return next(new ErrorResponse(res, 401, 'Vui lòng đăng nhập tài khoản'))
     }
 })
-exports.authorize = (...roles)=>{
+exports.authorize = (...roles) => {
     return (req, res, next) => {
         console.log(roles);
-        User.findOne({_id: req.user_id.id}).then((user) => {
-            
-            if(!roles.includes(user.role)){
-                return next(new ErrorResponse(res,403, 'Bạn không có quyền truy cập'))
+        User.findOne({ _id: req.user_id.id }).then((user) => {
+
+            if (!roles.includes(user.role)) {
+                return next(new ErrorResponse(res, 403, 'Bạn không có quyền truy cập'))
             }
             next()
         })

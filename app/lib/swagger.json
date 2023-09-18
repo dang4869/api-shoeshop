@@ -1,0 +1,1337 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample video tutorial",
+    "version": "1.0.0",
+    "title": "Tutorial",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "tutorial@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1/",
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Everything about your Login",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "User",
+      "description": "Tài khoản người dùng",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "Category",
+      "description": "Danh mục sản phẩm",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "Product",
+      "description": "Sản phẩm",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "Login",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Auth"],
+        "summary": "Get current user",
+        "description": "Bạn cần đăng nhập để thực hiện chức năng này",
+        "operationId": "getCurrentUser",
+        "produces": ["application/json"],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Register user",
+        "description": "Đăng ký tài khoản mới",
+        "operationId": "RegisterUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created new User",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Auth"],
+        "summary": "Logout User",
+        "description": "Đăng xuất tài khoản",
+        "operationId": "LogoutUser",
+        "produces": ["application/json"],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/forgotPassword": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Forgot Password",
+        "description": "Quên mật khẩu",
+        "operationId": "forgotPassword",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/forgotPassword"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/auth/resetPassword/{resetToken}": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Resset Password",
+        "description": "Đổi mật khẩu",
+        "operationId": "resetPassword",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "resetToken",
+            "description": "resetToken of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user Record",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/resetPassword"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "Get All User",
+        "description": "Lấy tất cả tài khoản",
+        "operationId": "getAllUser",
+        "produces": ["application/json"],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user?sort={field}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "User sort",
+        "description": "Sắp xếp tài khoản theo ASC hoặc DESC",
+        "operationId": "User sort",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp theo ASC, sort=-name là sắp xếp theo DESC)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user?select={field}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "User select",
+        "description": "Select các trường của tài khoản người dùng",
+        "operationId": "User select",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "select",
+            "description": "tên trường cần select",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user?username={username}&email={email}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "User search",
+        "description": "Tìm kiếm tài khoản người dùng",
+        "operationId": "searchUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "username",
+            "description": "username",
+            "required": false,
+            "allowEmptyValue": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "description": "email",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/add": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "Create new User",
+        "description": "Thêm mới tài khoản",
+        "operationId": "createrUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created new User",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/edit/{id}": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "Update User",
+        "description": "Chỉnh sửa tài khoản",
+        "operationId": "updateUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update User",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/delete/{id}": {
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["User"],
+        "summary": "Delete User",
+        "description": "Xóa tài khoản người dùng",
+        "operationId": "deleteUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Get All Category",
+        "description": "Lấy tất cả danh mục",
+        "operationId": "getAllCategory",
+        "produces": ["application/json"],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category?name={name}&title={title}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Category search",
+        "description": "Tìm kiếm danh mục sản phẩm",
+        "operationId": "searchCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "tên danh mục sản phẩm",
+            "required": false,
+            "allowEmptyValue": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "description": "title",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": true
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Get Product Category",
+        "description": "Lấy sản phẩm theo danh mục",
+        "operationId": "getProductCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/{id}?name={name}&special={special}&brand={brand}&size={size}&color={color}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Product search",
+        "description": "Tìm kiếm sản phẩm theo các trường",
+        "operationId": "searchProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "tên sản phẩm",
+            "type": "string",
+            "allowEmptyValue": true
+          },
+          {
+            "in": "query",
+            "name": "special",
+            "description": "special",
+            "allowEmptyValue": true,
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "description": "thương hiệu sản phẩm",
+            "allowEmptyValue": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "size",
+            "description": "size",
+            "allowEmptyValue": true,
+            "type": "string",
+            "enum": ["s", "m", "l", "xl"]
+          },
+          {
+            "in": "query",
+            "name": "color",
+            "description": "màu sắc sản phẩm",
+            "allowEmptyValue": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/all": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Get All ProductCategory",
+        "description": "Lấy tất cả sản phẩm theo tất cả danh mục",
+        "operationId": "getAllProductCategory",
+        "produces": ["application/json"],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/all?page={page}&limit={limit}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "CategoryProduct pagination",
+        "description": "Phân trang sản phẩm theo danh mục",
+        "operationId": "paginationProductCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page",
+            "description": "page of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "limit",
+            "description": "số bản ghi trên 1 trang",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/all?name={name}&special={special}&brand={brand}&size={size}&color={color}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Product search",
+        "description": "Tìm kiếm sản phẩm theo các trường",
+        "operationId": "searchProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "tên sản phẩm",
+            "type": "string",
+            "allowEmptyValue": true
+          },
+          {
+            "in": "query",
+            "name": "special",
+            "description": "special",
+            "allowEmptyValue": true,
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "description": "thương hiệu sản phẩm",
+            "allowEmptyValue": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "size",
+            "description": "size",
+            "allowEmptyValue": true,
+            "type": "string",
+            "enum": ["s", "m", "l", "xl"]
+          },
+          {
+            "in": "query",
+            "name": "color",
+            "description": "màu sắc sản phẩm",
+            "allowEmptyValue": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/all?sort={field}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "CategoryProduct sort",
+        "description": "Sắp xếp sản phẩm từ lớn đến bé hoặc từ bé đến lớn",
+        "operationId": "CategoryProduct sort",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp từ bé đến lớn, sort=-name là sắp xếp từ lớn đến bé)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/all?select={field}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "CategoryProduct select",
+        "description": "Select các trường của sản phẩm theo danh mục sản phẩm",
+        "operationId": "CategoryProduct select",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "select",
+            "description": "tên trường cần select",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/{id}?sort={field}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "CategoryProductId sort",
+        "description": "Sắp xếp sản phẩm theo danh mục sản phẩm từ lớn đến bé hoặc từ bé đến lớn",
+        "operationId": "CategoryProductSortbyIdCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp từ bé đến lớn, sort=-name là sắp xếp từ lớn đến bé)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/{id}?select={filed}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "CategoryProduct select",
+        "description": "Select các trường của sản phẩm theo danh mục sản phẩm",
+        "operationId": "CategoryProductSelectbyIdCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "select",
+            "description": "tên trường cần select",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/add": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Create Category",
+        "description": "Thêm mới sản phẩm",
+        "operationId": "createrCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created new Category",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/edit/{id}": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Update Category",
+        "description": "Chỉnh sửa danh mục sản phẩm",
+        "operationId": "updateCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update Category",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/category/delete/{id}": {
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Category"],
+        "summary": "Delete Category",
+        "description": "Xóa danh mục sản phẩm",
+        "operationId": "deleteCategory",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Get All Product",
+        "description": "Lấy tất cả sản phẩm",
+        "operationId": "getAllProduct",
+        "produces": ["application/json"],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product?page={page}&limit={limit}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Product pagination",
+        "description": "Phân trang sản phẩm",
+        "operationId": "paginationProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page",
+            "description": "page",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "limit",
+            "description": "số bản ghi trên 1 trang",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product?name={name}&special={special}&brand={brand}&size={size}&color={color}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Product search",
+        "description": "Tìm kiếm sản phẩm theo các trường",
+        "operationId": "searchProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "tên sản phẩm",
+            "type": "string",
+            "allowEmptyValue": true
+          },
+          {
+            "in": "query",
+            "name": "special",
+            "description": "special",
+            "allowEmptyValue": true,
+            "type": "string",
+            "enum": ["true", "false"]
+          },
+          {
+            "in": "query",
+            "name": "brand",
+            "description": "thương hiệu sản phẩm",
+            "allowEmptyValue": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "size",
+            "description": "size",
+            "allowEmptyValue": true,
+            "type": "string",
+            "enum": ["s", "m", "l", "xl"]
+          },
+          {
+            "in": "query",
+            "name": "color",
+            "description": "màu sắc sản phẩm",
+            "allowEmptyValue": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Get One Product",
+        "description": "Lấy sản phẩm theo id",
+        "operationId": "getOneProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product/add": {
+      "post": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Create Product",
+        "description": "Thêm mới sản phẩm",
+        "operationId": "createrProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created new Product",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product/edit/{id}": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Update Product",
+        "description": "Chỉnh sửa sản phẩm",
+        "operationId": "updateProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user Record",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product/delete/{id}": {
+      "delete": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Delete Product",
+        "description": "Xóa sản phẩm",
+        "operationId": "deleteProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product/event/{type}/{id}": {
+      "put": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Update Like  Product",
+        "description": "Nếu type = like thì sẽ lượt like tăng còn type = dislike thì lượt like giảm",
+        "operationId": "updateLikeProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "type",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID of body",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product?sort={field}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Product sort",
+        "description": "Sắp xếp sản phẩm từ lớn đến bé hoặc từ bé đến lớn",
+        "operationId": "Product sort",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp từ bé đến lớn, sort=-name là sắp xếp từ lớn đến bé)",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/product?select={field}":{
+      "get": {
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": ["Product"],
+        "summary": "Product select",
+        "description": "Sắp xếp sản phẩm từ lớn đến bé hoặc từ bé đến lớn",
+        "operationId": "Productselect",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "select",
+            "description": "Select các trường của sản phẩm",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "forgotPassword": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "resetPassword": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "color": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "price": {
+          "type": "number"
+        },
+        "price_old": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "like": {
+          "type": "number"
+        },
+        "category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        },
+        "special": {
+          "type": "string"
+        },
+        "brand": {
+          "type": "string"
+        },
+        "size": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

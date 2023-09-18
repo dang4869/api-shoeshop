@@ -6,8 +6,8 @@ module.exports = {
 
     SMTP_HOST : 'sandbox.smtp.mailtrap.io',
     SMTP_PORT : 587,
-    SMTP_EMAIL: '0a7e9311fae1bf',
-    SMTP_PASS: '041db7b933afdf',
+    SMTP_EMAIL: '395d78a50b2bd0',
+    SMTP_PASS: 'c84e562c381201',
     FORM_EMAIL: 'admin@gmail.com',
     FORM_NAME: 'Restaurant'
 }

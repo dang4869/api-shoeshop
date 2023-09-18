@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-async function connect(){
+async function connect() {
   try {
     await mongoose.connect('mongodb://127.0.0.1:27017/api_shoeshop');
     console.log('Thành công')
@@ -7,4 +7,4 @@ async function connect(){
     console.log('Thất bại')
   }
 }
-module.exports = {connect}
+module.exports = { connect }

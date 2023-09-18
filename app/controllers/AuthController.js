@@ -21,7 +21,6 @@ class AuthController {
                 error: error
             })
         })
-
     }
     login(req, res, next) {
         const email = req.body.email
