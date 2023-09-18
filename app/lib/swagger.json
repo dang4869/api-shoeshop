@@ -85,7 +85,7 @@
         ],
         "tags": ["Auth"],
         "summary": "Get current user",
-        "description": "Bạn cần đăng nhập để thực hiện chức năng này",
+        "description": "Lấy tài khoản đang đăng nhập",
         "operationId": "getCurrentUser",
         "produces": ["application/json"],
         "responses": {
@@ -672,14 +672,14 @@
         ],
         "tags": ["Category"],
         "summary": "CategoryProduct sort",
-        "description": "Sắp xếp sản phẩm từ lớn đến bé hoặc từ bé đến lớn",
+        "description": "Sắp xếp sản phẩm theo ASC hoặc DESC",
         "operationId": "CategoryProduct sort",
         "produces": ["application/json"],
         "parameters": [
           {
             "in": "query",
             "name": "sort",
-            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp từ bé đến lớn, sort=-name là sắp xếp từ lớn đến bé)",
+            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp theo ASC, sort=-name là sắp xếp theo DESC)",
             "required": true,
             "type": "string"
           }
@@ -1163,14 +1163,14 @@
         ],
         "tags": ["Product"],
         "summary": "Product sort",
-        "description": "Sắp xếp sản phẩm từ lớn đến bé hoặc từ bé đến lớn",
+        "description": "Sắp xếp sản phẩm theo ASC hoặc DESC",
         "operationId": "Product sort",
         "produces": ["application/json"],
         "parameters": [
           {
             "in": "query",
             "name": "sort",
-            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp từ bé đến lớn, sort=-name là sắp xếp từ lớn đến bé)",
+            "description": "tên trường cần sắp xếp(vd: sort=name là sắp xếp theo ASC, sort=-name là sắp xếp theo DESC)",
             "required": true,
             "type": "string"
           }
